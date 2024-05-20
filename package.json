@@ -1,0 +1,12 @@
+{
+  "name": "the-movie-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "python -m http.server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
