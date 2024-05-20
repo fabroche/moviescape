@@ -2,11 +2,11 @@
   "name": "the-movie-db",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "dev": "python -m http.server"
   },
   "keywords": [],
-  "author": "",
+  "author": "@fabroche",
   "license": "ISC"
 }
