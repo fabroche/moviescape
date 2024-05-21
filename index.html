@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./src/styles/app.css" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="./src/styles/app.css"/>
 
     <title>Super Movies</title>
 </head>
@@ -18,7 +19,7 @@
     <h1 class="header-title header-title--categoryView inactive">Acción</h1>
 
     <form id="searchForm" class="header-searchForm">
-        <input type="text" placeholder="Vengadores" />
+        <input type="text" placeholder="Vengadores"/>
         <button>🔍</button>
     </form>
 </header>
@@ -30,29 +31,7 @@
     </div>
 
     <article class="trendingPreview-movieList">
-        <div class="movie-container">
-            <img
-                    src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                    class="movie-img"
-                    alt="Nombre de la película"
-            />
-        </div>
-
-        <div class="movie-container">
-            <img
-                    src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                    class="movie-img"
-                    alt="Nombre de la película"
-            />
-        </div>
-
-        <div class="movie-container">
-            <img
-                    src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                    class="movie-img"
-                    alt="Nombre de la película"
-            />
-        </div>
+        <!--Trending Movies List Content-->
     </article>
 </section>
 
@@ -60,17 +39,7 @@
     <h2 class="categoriesPreview-title">Categorías</h2>
 
     <article class="categoriesPreview-list">
-        <div class="category-container">
-            <h3 id="id28" class="category-title">Romance</h3>
-        </div>
-
-        <div class="category-container">
-            <h3 id="id16" class="category-title">Drama</h3>
-        </div>
-
-        <div class="category-container">
-            <h3 id="id14" class="category-title">Acción</h3>
-        </div>
+        <!--Categories List Content-->
     </article>
 </section>
 
@@ -154,7 +123,9 @@
 
 <footer>Hecho con amor en Cuba por @fabroche</footer>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="./src/secrets.js"></script>
 <script src="./src/main.js"></script>
+<script src="./src/navigation.js"></script>
 </body>
 </html>
