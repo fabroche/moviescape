@@ -9,8 +9,7 @@ async function getTrendingMoviesPreview() {
 
     const {data} = await API('/trending/movie/day')
 
-    const moviesListContainerElement = document.querySelector('#trendingPreview .trendingPreview-movieList')
-    moviesListContainerElement.innerHTML = `${data.results.map(movie =>
+    trendingPreviewMovieListElement.innerHTML = `${data.results.map(movie =>
         `<div class="movie-container">
                 <img
                     src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
@@ -28,8 +27,7 @@ async function getCategoriesPreview() {
 
     const {data} = await API('/genre/movie/list')
 
-    const categoriesListContainerElement = document.querySelector('#categoriesPreview .categoriesPreview-list')
-    categoriesListContainerElement.innerHTML = `${data.genres.map(category =>
+    categoriesPreviewListElement.innerHTML = `${data.genres.map(category =>
         `<div class="category-container">
             <h3 id="id${category.id}" class="category-title">${category.name}</h3>
         </div>`
