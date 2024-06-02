@@ -14,20 +14,20 @@
 </head>
 <body>
 <header id="header" class="header-container">
-    <span class="header-arrow inactive">&lt;</span>
+    <span class="header-arrow inactive" id="header-arrow">&lt;</span>
     <h1 class="header-title">Moviescape</h1>
     <h1 class="header-title header-title--categoryView inactive">Acción</h1>
 
     <form id="searchForm" class="header-searchForm">
-        <input type="text" placeholder="Vengadores"/>
-        <button>🔍</button>
+        <input id="search-input" type="text" placeholder="Vengadores"/>
+        <button id="search-form-button">🔍</button>
     </form>
 </header>
 
 <section id="trendingPreview" class="trendingPreview-container">
     <div class="trendingPreview-header">
         <h2 class="trendingPreview-title">Tendencias</h2>
-        <button class="trendingPreview-btn">Ver más</button>
+        <button class="trendingPreview-btn" id="trendingPreview-btn">Ver más</button>
     </div>
 
     <article class="trendingPreview-movieList">
@@ -44,29 +44,7 @@
 </section>
 
 <section id="genericList" class="genericList-container inactive">
-    <div class="movie-container">
-        <img
-                src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                class="movie-img"
-                alt="Nombre de la película"
-        />
-    </div>
-
-    <div class="movie-container">
-        <img
-                src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                class="movie-img"
-                alt="Nombre de la película"
-        />
-    </div>
-
-    <div class="movie-container">
-        <img
-                src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                class="movie-img"
-                alt="Nombre de la película"
-        />
-    </div>
+<!--movies content-->
 </section>
 
 <section id="movieDetail" class="movieDetail-container inactive">
