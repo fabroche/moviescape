@@ -24,7 +24,7 @@ window.addEventListener('hashchange', navigator, false)
 window.addEventListener('DOMContentLoaded', navigator, false)
 searchFormButtonElement.addEventListener('click', () => location.hash = `#search=${searchFormInputElement.value}`)
 trendingPreviewBtnElement.addEventListener('click', () => location.hash = '#trends')
-headerArrowElement.addEventListener('click', () => location.hash = '#home')
+headerArrowElement.addEventListener('click', () => history.back())
 
 function homePage() {
     console.log('HOME!!!')
@@ -79,6 +79,9 @@ function movieDetailsPage() {
     categoriesPreviewSection.classList.add('inactive')
     genericListElement.classList.add('inactive')
     movieDetailSection.classList.remove('inactive')
+
+    const movieId = location.hash.split('#movie=')[1]
+    getMovieById(movieId)
 }
 
 function searchPage() {
@@ -97,7 +100,7 @@ function searchPage() {
     movieDetailSection.classList.add('inactive')
     searchFormElement.classList.remove('inactive')
 
-    const searchValue = capitalize(newTitleWordsArray)
+    const searchValue = newTitleWordsArray[0] === '' ? '' : capitalize(newTitleWordsArray)
     getMoviesBySearch(searchValue)
 
 
