@@ -1,4 +1,4 @@
-// copy-files.js
+// componente para copiar los archivos de la carpeta src en dist
 const fs = require('fs');
 const path = require('path');
 
