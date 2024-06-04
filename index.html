@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta property="og:title" content="Moviescape" />
+    <meta property="og:description" content="A tiny mobile only movies catalogue web app maked with the intencion of learn the fundamentals of consuming API rest, this app use The movieDB API." />
+    <meta property="og:image" content="./src/assets/moviescape-preview.png"/>
+    <link rel="shortcut icon" href="assets/favicon/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="styles/app.css"/>
+
+    <title>Moviescape</title>
+</head>
+<body>
+<header id="header" class="header-container">
+    <span class="header-arrow inactive" id="header-arrow">&lt;</span>
+    <h1 class="header-title">Moviescape</h1>
+    <h1 class="header-title header-title--categoryView inactive">Acción</h1>
+
+    <form id="searchForm" class="header-searchForm">
+        <input id="search-input" type="text" placeholder="Vengadores"/>
+        <button id="search-form-button">🔍</button>
+    </form>
+</header>
+
+<section id="trendingPreview" class="trendingPreview-container">
+    <div class="trendingPreview-header">
+        <h2 class="trendingPreview-title">Tendencias</h2>
+        <button class="trendingPreview-btn" id="trendingPreview-btn">Ver más</button>
+    </div>
+
+    <article class="trendingPreview-movieList">
+        <!--Trending Movies List Content-->
+    </article>
+</section>
+
+<section id="categoriesPreview" class="categoriesPreview-container">
+    <h2 class="categoriesPreview-title">Categorías</h2>
+
+    <article class="categoriesPreview-list">
+        <!--Categories List Content-->
+    </article>
+</section>
+
+<section id="genericList" class="genericList-container inactive">
+<!--movies content-->
+</section>
+
+<section id="movieDetail" class="movieDetail-container inactive">
+<!--movie details content-->
+</section>
+
+<footer>Hecho con amor en Cuba por @fabroche</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="nodes.js"></script>
+<script src="secrets.js"></script>
+<script src="main.js"></script>
+<script src="navigation.js"></script>
+</body>
+</html>
