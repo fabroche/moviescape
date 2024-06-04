@@ -1,0 +1,17 @@
+{
+  "name": "the-movie-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server",
+    "deploy": "gh-pages -d .",
+    "build": "node build.js"
+  },
+  "keywords": [],
+  "author": "@fabroche",
+  "license": "ISC",
+  "dependencies": {
+    "gh-pages": "^6.1.1"
+  }
+}
