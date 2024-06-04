@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "dev": "python -m http.server"
+    "dev": "python -m http.server",
+    "deploy": "gh-pages -d dist",
+    "build": "node build.js"
   },
   "keywords": [],
   "author": "@fabroche",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "gh-pages": "^6.1.1"
+  }
 }
