@@ -91,6 +91,7 @@ function getClosestWidth(screenWidth) {
             return closestWidth
         }
     }
+    return availableWidths[2]
 }
 
 // API Call Functions

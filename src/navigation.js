@@ -1,5 +1,4 @@
 function navigator() {
-    console.log(location)
 
     const HASHES = {
         '#trends': () => trendsPage(),
@@ -27,7 +26,6 @@ trendingPreviewBtnElement.addEventListener('click', () => location.hash = '#tren
 headerArrowElement.addEventListener('click', () => history.back())
 
 function homePage() {
-    console.log('HOME!!!')
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.add('inactive')
@@ -45,7 +43,6 @@ function homePage() {
 }
 
 function categoriesPage() {
-    console.log('CATEGORIES!!!')
     window.scrollTo(0, 0)
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
@@ -66,7 +63,6 @@ function categoriesPage() {
 }
 
 function movieDetailsPage() {
-    console.log('MOVIES!!!')
     headerElement.classList.add('header-container--long')
     // headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
@@ -85,7 +81,6 @@ function movieDetailsPage() {
 }
 
 function searchPage() {
-    console.log('Search!!!')
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
@@ -108,7 +103,6 @@ function searchPage() {
 }
 
 function trendsPage() {
-    console.log('TRENDS!!!')
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
