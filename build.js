@@ -5,10 +5,27 @@ const path = require('path');
 const srcDir = path.join(__dirname, 'src');
 const distDir = path.join(__dirname, 'dist');
 
-function copyFiles(srcPath, distPath) {
-    const files = fs.readdirSync(srcPath);
+function deleteFolderContents(folderPath) {
+    const files = fs.readdirSync(folderPath);
+    for (const file of files) {
+        const filePath = path.join(folderPath, file);
+        if (fs.statSync(filePath).isDirectory()) {
+            // Si es un directorio, borra su contenido recursivamente
+            deleteFolderContents(filePath);
+            fs.rmdirSync(filePath);
+        } else {
+            // Si es un archivo, elimínalo
+            fs.unlinkSync(filePath);
+        }
+    }
+}
 
-    files.forEach((file) => {
+function copyFiles(srcPath, distPath) {
+    // Borra el contenido de la carpeta dist
+    deleteFolderContents(distPath);
+
+    const files = fs.readdirSync(srcPath);
+    for (const file of files) {
         const srcFile = path.join(srcPath, file);
         const distFile = path.join(distPath, file);
 
@@ -20,7 +37,7 @@ function copyFiles(srcPath, distPath) {
             // Si es un archivo, copia el archivo a dist
             fs.copyFileSync(srcFile, distFile);
         }
-    });
+    }
 }
 
 copyFiles(srcDir, distDir);
