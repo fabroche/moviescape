@@ -2,10 +2,10 @@
   "name": "the-movie-db",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.html",
+  "main": "index.html",
   "scripts": {
     "dev": "python -m http.server",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d .",
     "build": "node build.js"
   },
   "keywords": [],

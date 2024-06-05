@@ -4,22 +4,28 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta property="og:title" content="Moviescape" />
-    <meta property="og:description" content="A tiny mobile only movies catalogue web app maked with the intencion of learn the fundamentals of consuming API rest, this app use The movieDB API." />
+    <meta property="og:title" content="Moviescape"/>
+    <meta property="og:description"
+          content="A tiny mobile only movies catalogue web app maked with the intencion of learn the fundamentals of consuming API rest, this app use The movieDB API."/>
     <meta property="og:image" content="./src/assets/moviescape-preview.png"/>
-    <link rel="shortcut icon" href="assets/favicon/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="src/assets/favicon/favicon.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap"
           rel="stylesheet"/>
-    <link rel="stylesheet" href="styles/app.css"/>
+    <link rel="stylesheet" href="src/styles/app.css"/>
 
     <title>Moviescape</title>
 </head>
 <body>
 <header id="header" class="header-container">
-    <span class="header-arrow inactive" id="header-arrow">&lt;</span>
-    <h1 class="header-title">Moviescape</h1>
+    <div class="header-navigation-container">
+        <span class="header-arrow inactive" id="header-arrow">&lt;</span>
+        <img class="header-home" id="header-home" src="./src/assets/favicon/favicon.png" alt="" width="48px"
+             height="48px">
+    </div>
+    <h1 class="header-title"><img src="./src/assets/favicon/favicon.png" width="32px" height="32px" alt="">MOVIESCAPE
+    </h1>
     <h1 class="header-title header-title--categoryView inactive">Acción</h1>
 
     <form id="searchForm" class="header-searchForm">
@@ -48,19 +54,19 @@
 </section>
 
 <section id="genericList" class="genericList-container inactive">
-<!--movies content-->
+    <!--movies content-->
 </section>
 
 <section id="movieDetail" class="movieDetail-container inactive">
-<!--movie details content-->
+    <!--movie details content-->
 </section>
 
 <footer>Hecho con amor en Cuba por @fabroche</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="nodes.js"></script>
-<script src="secrets.js"></script>
-<script src="main.js"></script>
-<script src="navigation.js"></script>
+<script src="src/nodes.js"></script>
+<script src="src/secrets.js"></script>
+<script src="src/main.js"></script>
+<script src="src/navigation.js"></script>
 </body>
 </html>

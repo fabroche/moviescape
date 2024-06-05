@@ -157,15 +157,34 @@ button {
 }
 
 .header-title {
-    margin-bottom: 16px
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1px;
 }
 
+.header-navigation-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
 .header-arrow {
     font-weight: var(--font-weight-text2);
     font-size: 36px;
-    margin-bottom: 16px;
     cursor: pointer;
     display: inline-block
+}
+
+.header-home {
+    cursor: pointer;
+    align-self: center;
+    transition: all 200ms ease-in-out;
+}
+
+.header-home:hover {
+    scale: 1.05;
 }
 
 .header-arrow--white {

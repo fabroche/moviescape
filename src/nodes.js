@@ -1,5 +1,6 @@
 const headerElement = document.querySelector('#header');
 const headerArrowElement = document.querySelector('.header-arrow');
+const headerHomeElement = document.querySelector('.header-home');
 const headerCategoryTitleElement = document.querySelector('.header-title--categoryView');
 const headerTitleElement = document.querySelector('.header-title');
 const searchFormElement = document.querySelector('#searchForm');
