@@ -24,11 +24,13 @@ window.addEventListener('DOMContentLoaded', navigator, false)
 searchFormButtonElement.addEventListener('click', () => location.hash = `#search=${searchFormInputElement.value}`)
 trendingPreviewBtnElement.addEventListener('click', () => location.hash = '#trends')
 headerArrowElement.addEventListener('click', () => history.back())
+headerHomeElement.addEventListener('click', () => location.hash = '#home')
 
 function homePage() {
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.add('inactive')
+    headerHomeElement.classList.add('inactive')
     headerArrowElement.classList.remove('header-arrow--white')
     headerCategoryTitleElement.classList.add('inactive')
     headerTitleElement.classList.remove('inactive')
@@ -47,6 +49,7 @@ function categoriesPage() {
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
+    headerHomeElement.classList.remove('inactive')
     headerArrowElement.classList.remove('header-arrow--white')
     headerCategoryTitleElement.classList.remove('inactive')
     headerTitleElement.classList.add('inactive')
@@ -56,7 +59,7 @@ function categoriesPage() {
     genericListElement.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
 
-    const [categoryId,categoryName] = location.hash.split('=')[1].split('-')
+    const [categoryId, categoryName] = location.hash.split('=')[1].split('-')
     headerCategoryTitleElement.innerText = capitalize(categoryName.split('%20'))
     getMoviesByCategory(categoryId)
 
@@ -66,6 +69,7 @@ function movieDetailsPage() {
     headerElement.classList.add('header-container--long')
     // headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
+    headerHomeElement.classList.remove('inactive')
     headerArrowElement.classList.add('header-arrow--white')
     headerCategoryTitleElement.classList.add('inactive')
     headerTitleElement.classList.add('inactive')
@@ -84,6 +88,7 @@ function searchPage() {
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
+    headerHomeElement.classList.remove('inactive')
     headerArrowElement.classList.remove('header-arrow--white')
     headerCategoryTitleElement.classList.remove('inactive')
     headerTitleElement.classList.add('inactive')
@@ -99,13 +104,13 @@ function searchPage() {
     getMoviesBySearch(searchValue)
 
 
-
 }
 
 function trendsPage() {
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
+    headerHomeElement.classList.remove('inactive')
     headerArrowElement.classList.remove('header-arrow--white')
     headerCategoryTitleElement.classList.remove('inactive')
     headerCategoryTitleElement.innerText = 'Tendencias'

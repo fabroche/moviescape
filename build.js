@@ -38,6 +38,11 @@ function copyFiles(srcPath, distPath) {
             fs.copyFileSync(srcFile, distFile);
         }
     }
+
+    // Copia el archivo index.html a la carpeta dist
+    const indexPath = path.join(__dirname, 'index.html');
+    const distIndexPath = path.join(distDir, 'index.html');
+    fs.copyFileSync(indexPath, distIndexPath);
 }
 
 copyFiles(srcDir, distDir);
