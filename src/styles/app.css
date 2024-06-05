@@ -178,6 +178,9 @@ button {
 }
 
 .header-home {
+    padding: 6px;
+    border-radius: 50%;
+    background-color: var(--purple-light-1);
     cursor: pointer;
     align-self: center;
     transition: all 200ms ease-in-out;
