@@ -65,8 +65,11 @@ function categoriesPage() {
 
 }
 
-function movieDetailsPage() {
+async function movieDetailsPage() {
+    window.scrollTo(0, window.innerHeight / 2)
     headerElement.classList.add('header-container--long')
+    headerElement.classList.add('header-container--loading')
+
     // headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
     headerHomeElement.classList.remove('inactive')
@@ -80,8 +83,29 @@ function movieDetailsPage() {
     genericListElement.classList.add('inactive')
     movieDetailSection.classList.remove('inactive')
 
+    headerElement.style = 'background-image: none; background: var(--purple-light-3);'
+    movieDetailTitleElement.innerText = ""
+    movieDetailTitleElement.classList.add('movieDetail-title--loading')
+    movieDetailScoreElement.innerText = ""
+    movieDetailScoreElement.classList.add('movieDetail-score--loading')
+    movieDetailDescriptionElement.innerText = ""
+    movieDetailDescriptionElement.classList.remove('movieDetail-description--loading')
+    categoriesListElement.innerHTML = `
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading"></div>
+    `
+    relatedMoviesScrollContainerElement.innerHTML = `
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+    `
+
     const movieId = location.hash.split('#movie=')[1]
-    getMovieById(movieId)
+    const movie = await getMovieById(movieId)
+    renderMovieDetailsSection(movie, movieDetailSection)
+
 }
 
 function searchPage() {

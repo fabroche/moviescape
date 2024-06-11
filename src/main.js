@@ -6,12 +6,36 @@ const API = axios.create({
 })
 
 // Utils
+
+const imgLazyLoader = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.remove('movie-container--loading')
+            entry.target.setAttribute('src', entry.target.getAttribute('data-src'))
+            observer.unobserve(entry.target)
+        }
+    })
+})
+
+// const movieContainerIntersectionObserver = new IntersectionObserver((entries, observer) => {
+//     entries.forEach((entry) => {
+//         entry.isIntersecting
+//             ? entry.target.classList.remove('movie-container--loading')
+//             : entry.target.classList.add('movie-container--loading')
+//     })
+// })
+
 function renderMovies(movieArray, domElementContainer) {
-    if (movieArray.length !== 0) {
-        domElementContainer.innerHTML = `${movieArray.map(movie =>
-            `<div class="movie-container" onclick="navigateToMovieDetails('${movie.id}')">
+
+    if (movieArray.length === 0) {
+        domElementContainer.innerHTML = `<h3>🙁Ups!, there is no coincidences.</h3>`
+        return;
+    }
+    domElementContainer.innerHTML = `${movieArray.map(movie =>
+        `<div class="movie-container" onclick="navigateToMovieDetails('${movie.id}')">
                 <img
-                    src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
+                    id="img-${movie.id}"
+                    data-src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
                     class="movie-img"
                     alt="${movie.title}"
                 />
@@ -19,36 +43,34 @@ function renderMovies(movieArray, domElementContainer) {
                 <span class="movieDetail-score">${parseFloat(movie.vote_average).toFixed(1)}</span>
                 </div>
             </div>`
-        ).join("")}`
-    } else {
-        domElementContainer.innerHTML = `<h3>🙁Ups!, there is no coincidences.</h3>`
-    }
+    ).join("")}`
+
+    // Observando todos los .movie-container
+    // domElementContainer.childNodes.forEach(movieContainer => {
+    //     movieContainerIntersectionObserver.observe(movieContainer)
+    // })
+
+    // Observando cada una de las etiquetas <img> de .movie-container
+    domElementContainer.childNodes.forEach(movieImg => {
+        const MovieImageTagElement = movieImg.childNodes[1]
+        imgLazyLoader.observe(MovieImageTagElement)
+    })
+
 }
 
-function renderMovieDetails(movie, domElementContainer) {
+function renderMovieDetailsSection(movie, domElementContainer) {
+    headerElement.classList.remove('header-container--loading')
+
     headerElement.style = `
     background-image: url(https://image.tmdb.org/t/p/w${getClosestWidth(window.innerWidth)}${movie.poster_path});
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 19.27%, rgba(0, 0, 0, 0) 29.17%), url(https://image.tmdb.org/t/p/w${getClosestWidth(window.innerWidth)}${movie.poster_path});
     `
-
-    domElementContainer.innerHTML = `
-    <h1 class="movieDetail-title">${movie.title}</h1>
-    <span class="movieDetail-score">${parseFloat(movie.vote_average).toFixed(1)}</span>
-    <p class="movieDetail-description">
-        ${movie.overview}
-    </p>
-    
-    <article class="categories-list">
-        <!--categories content-->
-    </article>
-
-    <article class="relatedMovies-container">
-        <h2 class="relatedMovies-title">Películas similares</h2>
-
-        <div class="relatedMovies-scrollContainer">
-            <!--movies content-->
-        </div>
-    </article>`
+    movieDetailTitleElement.innerText = movie.title
+    movieDetailTitleElement.classList.remove('movieDetail-title--loading')
+    movieDetailScoreElement.innerText = parseFloat(movie.vote_average).toFixed(1)
+    movieDetailScoreElement.classList.remove('movieDetail-score--loading')
+    movieDetailDescriptionElement.innerText = movie.overview
+    movieDetailDescriptionElement.classList.remove('movieDetail-description--loading')
 
     renderCategories(movie.genres, document.querySelector('#movieDetail .categories-list'))
     getRelatedMovieById(movie.id)
@@ -124,7 +146,7 @@ async function getMovieById(movieId) {
 
     const {data} = await API(`/movie/${movieId}`)
 
-    renderMovieDetails(data, movieDetailSection)
+    return data;
 }
 
 async function getRelatedMovieById(movieId) {

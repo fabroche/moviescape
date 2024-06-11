@@ -5,6 +5,7 @@
 :root {
     --purple-light-1: #FBFAFB;
     --purple-light-2: #EEEAF2;
+    --purple-light-3: #BAB6BEFF;
     --purple-medium-1: #AA83C8;
     --purple-medium-2: #8B48BF;
     --purple-medium-3: #5C218A;
@@ -103,6 +104,27 @@ button {
     position: relative;
 }
 
+.movie-container--loading {
+    background: var(--purple-light-3);
+    border-radius: 8px;
+    height: 225px;
+    min-height: 225px;
+    max-height: 225px;
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    margin-bottom: 15px;
+    animation: loading-skeleton infinite 1.5s;
+}
+
+.movie-container--loading:nth-child(2) {
+    animation-delay: 200ms;
+}
+
+.movie-container--loading:nth-child(3) {
+    animation-delay: 400ms;
+}
+
 .movie-container-background {
     display: flex;
     opacity: 0;
@@ -119,10 +141,12 @@ button {
     bottom: 0;
     transition: all 200ms ease-in-out;
 }
+
 .movie-container-background .movieDetail-score {
     align-self: end;
     color: var(--purple-light-1);
 }
+
 .movie-container-background:hover {
     opacity: 1;
 }
@@ -152,6 +176,11 @@ button {
     width: 100%
 }
 
+.header-container--loading {
+    background: var(--purple-light-3);
+    animation: loading-skeleton infinite 1.5s;
+}
+
 .header-container--categoryView {
     background: linear-gradient(180deg, rgba(238, 204, 117, 0.5) 0%, rgba(238, 204, 117, 0) 72.92%)
 }
@@ -170,6 +199,7 @@ button {
     align-items: center;
     margin-bottom: 16px;
 }
+
 .header-arrow {
     font-weight: var(--font-weight-text2);
     font-size: 36px;
@@ -256,6 +286,27 @@ button {
 
 .category-container {
     width: 45%
+}
+
+.category-container--loading {
+    background: var(--purple-light-3);
+    border-radius: 8px;
+    height: 25px;
+    min-height: 25px;
+    max-height: 25px;
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+    margin-bottom: 15px;
+    animation: loading-skeleton infinite 1.5s;
+}
+
+.category-container--loading:nth-child(2) {
+    animation-delay: 200ms;
+}
+
+.category-container--loading:nth-child(3) {
+    animation-delay: 400ms;
 }
 
 .category-title {
@@ -369,7 +420,17 @@ button {
     width: 100%
 }
 
+.movieDetail-header-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
 .movieDetail-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
     padding: 32px 24px;
@@ -382,15 +443,28 @@ button {
 .movieDetail-title {
     display: inline-block;
     width: 80%;
-    margin: 0 0 16px;
     padding: 0
+}
+
+.movieDetail-title--loading {
+    background: var(--purple-light-3);
+    border-radius: 8px;
+    height: 25px;
+    min-height: 25px;
+    max-height: 25px;
+    width: 70%;
+    min-width: 150px;
+    max-width: 80%;
+    margin-bottom: 15px;
+    margin-right: 10%;
+    animation: loading-skeleton infinite 1.5s;
 }
 
 .movieDetail-score {
     display: inline-block;
-    text-align: right;
     width: 18%;
-    font-weight: var(--font-weight-title2)
+    font-weight: var(--font-weight-title2);
+    text-align: end;
 }
 
 .movieDetail-score::before {
@@ -399,8 +473,35 @@ button {
     padding-right: 4px
 }
 
+.movieDetail-score--loading {
+    background: var(--purple-light-3);
+    border-radius: 8px;
+    height: 25px;
+    min-height: 25px;
+    max-height: 25px;
+    width: 18%;
+    min-width: 10%;
+    max-width: 18%;
+    margin-bottom: 15px;
+    animation: loading-skeleton infinite 1.5s;
+}
+
 .movieDetail-description {
-    margin: 0 0 24px
+    margin: 0 0 24px;
+    text-align: justify;
+}
+
+.movieDetail-description--loading {
+    background: var(--purple-light-3);
+    border-radius: 8px;
+    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    margin-bottom: 15px;
+    animation: loading-skeleton infinite 1.5s;
 }
 
 .relatedMovies-container {
@@ -449,18 +550,13 @@ footer {
     display: none
 }
 
-/*@media (min-width: 725px) {*/
-/*    header, section {*/
-/*        max-width: 70%;*/
-/*        margin-left: auto;*/
-/*        margin-right: auto;*/
-/*    }*/
-/*}*/
+/*Animations*/
 
-/*@media (min-width: 1020px) {*/
-/*    header, section {*/
-/*        max-width: 50%;*/
-/*        margin-left: auto;*/
-/*        margin-right: auto;*/
-/*    }*/
-/*}*/
+@keyframes loading-skeleton {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
