@@ -82,6 +82,7 @@ function renderMovies(movieArray, domElementContainer, lazyLoad = false) {
             </div>`
     ).join("")}`
 
+    // Agregando evento onError a los elementos img de los movie-containers
     domElementContainer.childNodes.forEach(movieContainer => {
         movieContainer.children[0].addEventListener('error', (e) => setDefaultImage(e))
     })
@@ -163,7 +164,7 @@ async function getTrendingMovies() {
 
     const {data} = await API('/trending/movie/day')
 
-    renderMovies(data.results, genericListElement)
+    renderMovies(data.results, genericListElement, true)
 }
 
 async function getMoviesByCategory(categoryId) {
@@ -174,7 +175,7 @@ async function getMoviesByCategory(categoryId) {
         }
     })
 
-    renderMovies(data.results, genericListElement)
+    renderMovies(data.results, genericListElement, true)
 }
 
 async function getMovieById(movieId) {
