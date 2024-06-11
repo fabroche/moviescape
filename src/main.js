@@ -6,6 +6,25 @@ const API = axios.create({
 })
 
 // Utils
+
+const imgLazyLoader = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.remove('movie-container--loading')
+            entry.target.setAttribute('src', entry.target.getAttribute('data-src'))
+            observer.unobserve(entry.target)
+        }
+    })
+})
+
+// const movieContainerIntersectionObserver = new IntersectionObserver((entries, observer) => {
+//     entries.forEach((entry) => {
+//         entry.isIntersecting
+//             ? entry.target.classList.remove('movie-container--loading')
+//             : entry.target.classList.add('movie-container--loading')
+//     })
+// })
+
 function renderMovies(movieArray, domElementContainer) {
 
     if (movieArray.length === 0) {
@@ -15,7 +34,8 @@ function renderMovies(movieArray, domElementContainer) {
     domElementContainer.innerHTML = `${movieArray.map(movie =>
         `<div class="movie-container" onclick="navigateToMovieDetails('${movie.id}')">
                 <img
-                    src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
+                    id="img-${movie.id}"
+                    data-src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
                     class="movie-img"
                     alt="${movie.title}"
                 />
@@ -24,6 +44,17 @@ function renderMovies(movieArray, domElementContainer) {
                 </div>
             </div>`
     ).join("")}`
+
+    // Observando todos los .movie-container
+    // domElementContainer.childNodes.forEach(movieContainer => {
+    //     movieContainerIntersectionObserver.observe(movieContainer)
+    // })
+
+    // Observando cada una de las etiquetas <img> de .movie-container
+    domElementContainer.childNodes.forEach(movieImg => {
+        const MovieImageTagElement = movieImg.childNodes[1]
+        imgLazyLoader.observe(MovieImageTagElement)
+    })
 
 }
 
