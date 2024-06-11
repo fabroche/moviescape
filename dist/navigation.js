@@ -104,7 +104,7 @@ async function movieDetailsPage() {
 
     const movieId = location.hash.split('#movie=')[1]
     const movie = await getMovieById(movieId)
-    renderMovieDetailsSection(movie, movieDetailSection)
+    renderMovieDetailsSection(movie)
 
 }
 

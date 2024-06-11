@@ -7,35 +7,72 @@ const API = axios.create({
 
 // Utils
 
-const imgLazyLoader = new IntersectionObserver((entries, observer) => {
+// Función para obtener los próximos elementos
+const getNextElements = (currentElement, count) => {
+    const elements = [];
+    let nextElement = currentElement.nextElementSibling;
+    while (nextElement && elements.length < count) {
+        elements.push(nextElement);
+        nextElement = nextElement.nextElementSibling;
+    }
+    return elements;
+};
+
+const lazyLoadMovieContainerImg = (entries, observer) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
-            entry.target.classList.remove('movie-container--loading')
-            entry.target.setAttribute('src', entry.target.getAttribute('data-src'))
-            observer.unobserve(entry.target)
+            entry.target.classList.remove('movie-container--loading');
+            entry.target.children[0].setAttribute('src', entry.target.children[0].getAttribute('data-src'));
+            observer.unobserve(entry.target);
+
+            // Carga las imágenes de los próximos elementos
+            const nextElements = getNextElements(entry.target, 6);
+
+            // Carga los próximos 3 elementos
+            nextElements.forEach((nextElement) => {
+                nextElement.classList.remove('movie-container--loading');
+                nextElement.children[0].setAttribute('src', nextElement.children[0].getAttribute('data-src'));
+                observer.unobserve(nextElement);
+            });
         }
-    })
-})
+    });
+};
 
-// const movieContainerIntersectionObserver = new IntersectionObserver((entries, observer) => {
-//     entries.forEach((entry) => {
-//         entry.isIntersecting
-//             ? entry.target.classList.remove('movie-container--loading')
-//             : entry.target.classList.add('movie-container--loading')
-//     })
-// })
+const imgObserverOptions = {
+    threshold: 0
+}
 
-function renderMovies(movieArray, domElementContainer) {
+const imgLazyLoader = new IntersectionObserver(lazyLoadMovieContainerImg, imgObserverOptions)
+
+function setDefaultImage(e) {
+    // Creando el nuevo nodo
+    const defaultImgPreviewNode = document.createElement('h3')
+    defaultImgPreviewNode.classList.add('movie-default-img')
+    defaultImgPreviewNode.classList.add('movie-img')
+    defaultImgPreviewNode.innerText = e.target.alt
+
+    // Moviendo el defaultImgPreviewNode a la panultima posicion para que funcione el hover del score
+    const parentMovieContainer = e.target.parentNode
+    const parentMovieContainerChildList = parentMovieContainer.children
+    const scoreBackground = parentMovieContainerChildList[parentMovieContainerChildList.length - 1]
+    parentMovieContainer.removeChild(scoreBackground)
+    parentMovieContainer.appendChild(defaultImgPreviewNode)
+    parentMovieContainer.appendChild(scoreBackground)
+
+}
+
+function renderMovies(movieArray, domElementContainer, lazyLoad = false) {
 
     if (movieArray.length === 0) {
         domElementContainer.innerHTML = `<h3>🙁Ups!, there is no coincidences.</h3>`
         return;
     }
+
     domElementContainer.innerHTML = `${movieArray.map(movie =>
         `<div class="movie-container" onclick="navigateToMovieDetails('${movie.id}')">
                 <img
                     id="img-${movie.id}"
-                    data-src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
+                    ${lazyLoad ? `data-src=https://image.tmdb.org/t/p/w300${movie.poster_path}` : `src=https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                     class="movie-img"
                     alt="${movie.title}"
                 />
@@ -45,20 +82,18 @@ function renderMovies(movieArray, domElementContainer) {
             </div>`
     ).join("")}`
 
-    // Observando todos los .movie-container
-    // domElementContainer.childNodes.forEach(movieContainer => {
-    //     movieContainerIntersectionObserver.observe(movieContainer)
-    // })
-
-    // Observando cada una de las etiquetas <img> de .movie-container
-    domElementContainer.childNodes.forEach(movieImg => {
-        const MovieImageTagElement = movieImg.childNodes[1]
-        imgLazyLoader.observe(MovieImageTagElement)
+    domElementContainer.childNodes.forEach(movieContainer => {
+        movieContainer.children[0].addEventListener('error', (e) => setDefaultImage(e))
     })
-
+    // Observando todos los .movie-container si lazyLoad es true
+    if (lazyLoad) {
+        domElementContainer.childNodes.forEach(movieContainer => {
+            imgLazyLoader.observe(movieContainer)
+        })
+    }
 }
 
-function renderMovieDetailsSection(movie, domElementContainer) {
+function renderMovieDetailsSection(movie) {
     headerElement.classList.remove('header-container--loading')
 
     headerElement.style = `
@@ -72,7 +107,7 @@ function renderMovieDetailsSection(movie, domElementContainer) {
     movieDetailDescriptionElement.innerText = movie.overview
     movieDetailDescriptionElement.classList.remove('movieDetail-description--loading')
 
-    renderCategories(movie.genres, document.querySelector('#movieDetail .categories-list'))
+    renderCategories(movie.genres, categoriesListElement)
     getRelatedMovieById(movie.id)
 }
 
@@ -121,7 +156,7 @@ async function getTrendingMoviesPreview() {
 
     const {data} = await API('/trending/movie/day')
 
-    renderMovies(data.results, trendingPreviewMovieListElement)
+    renderMovies(data.results, trendingPreviewMovieListElement, true)
 }
 
 async function getTrendingMovies() {
@@ -153,7 +188,7 @@ async function getRelatedMovieById(movieId) {
 
     const {data} = await API(`/movie/${movieId}/recommendations`)
 
-    renderMovies(data.results, document.querySelector('#movieDetail .relatedMovies-scrollContainer'))
+    renderMovies(data.results, relatedMoviesScrollContainerElement, true)
 }
 
 async function getMoviesBySearch(seachValue) {
@@ -163,7 +198,7 @@ async function getMoviesBySearch(seachValue) {
             query: seachValue
         }
     })
-    renderMovies(data.results, genericListElement)
+    renderMovies(data.results, genericListElement, true)
 }
 
 async function getCategoriesPreview() {
