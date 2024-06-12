@@ -1,14 +1,12 @@
 let maxPage;
 let page = 1
 let infiniteScroll;
-let infiniteScrollParams;
 
 function navigator() {
 
     if (infiniteScroll) {
         window.removeEventListener('scroll', infiniteScroll, {passive: false});
         infiniteScroll = undefined;
-        infiniteScrollParams = undefined;
         page = 1;
     }
 
@@ -82,10 +80,9 @@ function categoriesPage() {
 
     const [categoryId, categoryName] = location.hash.split('=')[1].split('-')
     headerCategoryTitleElement.innerText = capitalize(categoryName.split('%20'))
-    getMoviesByCategory(categoryId)
 
-    infiniteScrollParams = {categoryId: categoryId}
-    infiniteScroll = getPaginatedMoviesByCategory
+    getMoviesByCategory(categoryId)
+    infiniteScroll = getPaginatedMoviesByCategory(categoryId)
 
 }
 
@@ -155,7 +152,7 @@ function searchPage() {
     getMoviesBySearch(searchValue)
 
     infiniteScrollParams = {searchValue: searchValue}
-    infiniteScroll = getPaginatedMoviesBySearch;
+    infiniteScroll = getPaginatedMoviesBySearch(searchValue);
 }
 
 function trendsPage() {
