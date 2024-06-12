@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "dev": "python -m http.server",
+    "dev": "python -m http.server 8001",
     "deploy": "gh-pages -d .",
     "build": "node build.js"
   },

@@ -22,3 +22,7 @@ const categoriesListElement = document.querySelector('#movieDetail .categories-l
 const relatedMoviesContainerElement = document.querySelector('#movieDetail .relatedMovies-container');
 const relatedMoviesTitleElement = document.querySelector('#movieDetail .relatedMovies-title');
 const relatedMoviesScrollContainerElement = document.querySelector('#movieDetail .relatedMovies-scrollContainer');
+const footerElement = document.querySelector('#footer')
+const resetScrollButton = document.createElement('button')
+resetScrollButton.innerText = 'Scroll Down'
+resetScrollButton.classList.add('button-fixed-bottom-right')

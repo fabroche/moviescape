@@ -1,4 +1,16 @@
+let maxPage;
+let page = 1
+let infiniteScroll;
+let infiniteScrollParams;
+
 function navigator() {
+
+    if (infiniteScroll) {
+        window.removeEventListener('scroll', infiniteScroll, {passive: false});
+        infiniteScroll = undefined;
+        infiniteScrollParams = undefined;
+        page = 1;
+    }
 
     const HASHES = {
         '#trends': () => trendsPage(),
@@ -16,11 +28,17 @@ function navigator() {
 
     homePage()
 
+    if (infiniteScroll) {
+        window.addEventListener('scroll', infiniteScroll, {passive: false});
+    }
 }
 
 //Event listeners
 window.addEventListener('hashchange', navigator, false)
 window.addEventListener('DOMContentLoaded', navigator, false)
+window.addEventListener('scroll', handleInfiniteScroll, false)
+genericListElement.scrollIntoView({behavior: 'smooth'})
+resetScrollButton.addEventListener('click', handleScrollResetBtnState)
 searchFormButtonElement.addEventListener('click', () => location.hash = `#search=${searchFormInputElement.value}`)
 trendingPreviewBtnElement.addEventListener('click', () => location.hash = '#trends')
 headerArrowElement.addEventListener('click', () => history.back())
@@ -39,6 +57,8 @@ function homePage() {
     categoriesPreviewSection.classList.remove('inactive')
     genericListElement.classList.add('inactive')
     movieDetailSection.classList.add('inactive')
+    footerElement.classList.remove('footer--movie-details')
+
 
     getTrendingMoviesPreview()
     getCategoriesPreview()
@@ -58,10 +78,14 @@ function categoriesPage() {
     categoriesPreviewSection.classList.add('inactive')
     genericListElement.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
+    footerElement.classList.remove('footer--movie-details')
 
     const [categoryId, categoryName] = location.hash.split('=')[1].split('-')
     headerCategoryTitleElement.innerText = capitalize(categoryName.split('%20'))
     getMoviesByCategory(categoryId)
+
+    infiniteScrollParams = {categoryId: categoryId}
+    infiniteScroll = getPaginatedMoviesByCategory
 
 }
 
@@ -77,13 +101,14 @@ async function movieDetailsPage() {
     headerCategoryTitleElement.classList.add('inactive')
     headerTitleElement.classList.add('inactive')
     searchFormElement.classList.add('inactive')
+    footerElement.classList.add('footer--movie-details')
 
     trendingPreviewSectionElement.classList.add('inactive')
     categoriesPreviewSection.classList.add('inactive')
     genericListElement.classList.add('inactive')
     movieDetailSection.classList.remove('inactive')
 
-    headerElement.style = 'background-image: none; background: var(--purple-light-3);'
+    headerElement.style = 'background-image: none; background: var(--purple-light-1);'
     movieDetailTitleElement.innerText = ""
     movieDetailTitleElement.classList.add('movieDetail-title--loading')
     movieDetailScoreElement.innerText = ""
@@ -123,11 +148,14 @@ function searchPage() {
     genericListElement.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
     searchFormElement.classList.remove('inactive')
+    footerElement.classList.remove('footer--movie-details')
 
     const searchValue = newTitleWordsArray[0] === '' ? '' : capitalize(newTitleWordsArray)
+
     getMoviesBySearch(searchValue)
 
-
+    infiniteScrollParams = {searchValue: searchValue}
+    infiniteScroll = getPaginatedMoviesBySearch;
 }
 
 function trendsPage() {
@@ -144,6 +172,9 @@ function trendsPage() {
     categoriesPreviewSection.classList.add('inactive')
     genericListElement.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
+    footerElement.classList.remove('footer--movie-details')
 
-    getTrendingMovies()
+    getTrendingMovies();
+
+    infiniteScroll = getPaginatedTrendingMovies;
 }
