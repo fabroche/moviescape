@@ -9,7 +9,7 @@ const API = axios.create({
 
 function handleInfiniteScroll() {
     try {
-        infiniteScroll(infiniteScrollParams)
+        infiniteScroll()
     } catch (error) {
 
     }
@@ -231,35 +231,38 @@ async function getMoviesByCategory(categoryId) {
     genericListElement.appendChild(resetScrollButton)
 }
 
-async function getPaginatedMoviesByCategory(params) {
-    const {categoryId} = params
-    const {scrollTop, scrollHeight, clientHeight} = document.documentElement
+function getPaginatedMoviesByCategory(categoryId) {
+    // const {categoryId} = params
+    return async function () {
+        const {scrollTop, scrollHeight, clientHeight} = document.documentElement
 
-    if (scrollTop === 0) {
-        resetScrollButton.innerText = 'Scroll Down'
-    } else {
-        resetScrollButton.innerText = 'Scroll Up'
-    }
-
-    const pageIsNotMaxPage = page < maxPage
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
-
-    if (scrollIsBottom && pageIsNotMaxPage) {
-        page++;
-        const {data} = await API('/discover/movie', {
-            params: {
-                with_genres: categoryId,
-                page: page
-            },
-        })
-
-        if (data.results.length === 0) {
-            return;
+        if (scrollTop === 0) {
+            resetScrollButton.innerText = 'Scroll Down'
+        } else {
+            resetScrollButton.innerText = 'Scroll Up'
         }
-        genericListElement.removeChild(resetScrollButton)
-        renderMovies(data.results, genericListElement, {lazyLoad: true, infiniteScrolling: true})
-        genericListElement.appendChild(resetScrollButton)
+
+        const pageIsNotMaxPage = page < maxPage
+        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
+
+        if (scrollIsBottom && pageIsNotMaxPage) {
+            page++;
+            const {data} = await API('/discover/movie', {
+                params: {
+                    with_genres: categoryId,
+                    page: page
+                },
+            })
+
+            if (data.results.length === 0) {
+                return;
+            }
+            genericListElement.removeChild(resetScrollButton)
+            renderMovies(data.results, genericListElement, {lazyLoad: true, infiniteScrolling: true})
+            genericListElement.appendChild(resetScrollButton)
+        }
     }
+
 }
 
 async function getMovieById(movieId) {
@@ -288,35 +291,38 @@ async function getMoviesBySearch(searchValue) {
     genericListElement.appendChild(resetScrollButton)
 }
 
-async function getPaginatedMoviesBySearch(params) {
-    const {searchValue} = params
-    const {scrollTop, scrollHeight, clientHeight} = document.documentElement
+function getPaginatedMoviesBySearch(searchValue) {
+    // const {searchValue} = params
+    return async function () {
+        const {scrollTop, scrollHeight, clientHeight} = document.documentElement
 
-    if (scrollTop === 0) {
-        resetScrollButton.innerText = 'Scroll Down'
-    } else {
-        resetScrollButton.innerText = 'Scroll Up'
-    }
-
-    const pageIsNotMaxPage = page < maxPage
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
-
-    if (scrollIsBottom && pageIsNotMaxPage) {
-        page++;
-        const {data} = await API('/search/movie', {
-            params: {
-                query: searchValue,
-                page: page
-            },
-        })
-
-        if (data.results.length === 0) {
-            return;
+        if (scrollTop === 0) {
+            resetScrollButton.innerText = 'Scroll Down'
+        } else {
+            resetScrollButton.innerText = 'Scroll Up'
         }
-        genericListElement.removeChild(resetScrollButton)
-        renderMovies(data.results, genericListElement, {lazyLoad: true, infiniteScrolling: true})
-        genericListElement.appendChild(resetScrollButton)
+
+        const pageIsNotMaxPage = page < maxPage
+        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
+
+        if (scrollIsBottom && pageIsNotMaxPage) {
+            page++;
+            const {data} = await API('/search/movie', {
+                params: {
+                    query: searchValue,
+                    page: page
+                },
+            })
+
+            if (data.results.length === 0) {
+                return;
+            }
+            genericListElement.removeChild(resetScrollButton)
+            renderMovies(data.results, genericListElement, {lazyLoad: true, infiniteScrolling: true})
+            genericListElement.appendChild(resetScrollButton)
+        }
     }
+
 }
 
 async function getCategoriesPreview() {
