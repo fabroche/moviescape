@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
 }
+
 *::-webkit-scrollbar {
     scroll-behavior: smooth;
     transition: all 300ms ease-in-out;
@@ -96,11 +97,11 @@ button {
     justify-self: center;
 }
 
-.header-container, .trendingPreview-header, .categoriesPreview-container {
+.header-container, .trendingPreview-header, .categoriesPreview-container, .liked-header {
     padding: 0 24px
 }
 
-.trendingPreview-container, .categoriesPreview-container, footer {
+.trendingPreview-container, .categoriesPreview-container, .liked-container, footer {
     margin-top: 48px
 }
 
@@ -288,7 +289,7 @@ button {
     padding: 12px;
 }
 
-.trendingPreview-movieList {
+.trendingPreview-movieList, .liked-movieList {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
@@ -299,13 +300,15 @@ button {
     scroll-behavior: smooth;
 }
 
-.trendingPreview-movieList .movie-container {
+.trendingPreview-movieList .movie-container,
+.liked-movieList .movie-container {
     display: inline-block;
     margin-right: 8px;
     scroll-snap-align: center;
 }
 
-.trendingPreview-movieList .movie-container .movie-img {
+.trendingPreview-movieList .movie-container .movie-img,
+.liked-movieList .movie-container .movie-img {
     height: 225px;
     min-height: 225px;
     max-height: 225px;
@@ -597,11 +600,55 @@ footer {
     z-index: 3;
     width: 54px;
     height: 54px;
+    box-shadow: 0 0 10px 2px var(--purple-dark-1);
+    transition: all 300ms ease-in-out;
+}
+
+.button-absolute-top-right {
+    position: absolute;
+    user-select: none;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    z-index: 3;
+    width: 36px;
+    height: 36px;
     transition: all 300ms ease-in-out;
 }
 
 .inactive {
-    display: none
+    display: none !important;
+}
+
+.liked-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.liked-title {
+    text-align: start;
+}
+
+.liked-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    transition: all 300ms ease-in;
+}
+
+.liked-btn::before {
+    content: '🤍';
+}
+
+.liked-btn--active {
+    background-color: var(--purple-light-2);
+    box-shadow: 0 0 10px 2px var(--purple-dark-1);
+}
+
+.liked-btn--active::before {
+    content: '💜';
 }
 
 /*Animations*/

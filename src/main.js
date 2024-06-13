@@ -5,6 +5,35 @@ const API = axios.create({
     }
 })
 
+// LocalStorage
+function getlikedMoviesList() {
+    const likedMovies = JSON.parse(localStorage.getItem('liked_movies'))
+
+    if (likedMovies) {
+        return likedMovies;
+    }
+
+    return {}
+}
+
+function likeMovie(movie) {
+    const likedMovies = getlikedMoviesList();
+
+    if (likedMovies[movie.id]) {
+        delete likedMovies[movie.id];
+    } else {
+        likedMovies[movie.id] = movie;
+    }
+
+    localStorage.setItem('liked_movies', JSON.stringify(likedMovies))
+    const likedMoviesList = Object.values(getlikedMoviesList())
+    renderMovies(likedMoviesList.reverse(), likedMovieListElement, {lazyLoad: true, infiniteScroll: false})
+    getTrendingMoviesPreview()
+}
+
+function isLikedMovie(movieId) {
+    return Boolean(getlikedMoviesList()[movieId])
+}
 // Utils
 
 function handleInfiniteScroll() {
@@ -13,6 +42,15 @@ function handleInfiniteScroll() {
     } catch (error) {
 
     }
+}
+
+async function handleAddToFavorite(e) {
+
+    e.target.classList.toggle('liked-btn--active')
+
+    const movieId = e.target.getAttribute('data-movie-id')
+    const movie = await getMovieById(movieId)
+    likeMovie(movie);
 }
 
 // Función para obtener los próximos elementos
@@ -75,29 +113,36 @@ function renderMovies(movieArray, domElementContainer, {lazyLoad = false, infini
         domElementContainer.innerHTML = `<h3>🙁Ups!, there is no coincidences.</h3>`
         return;
     }
-
+    let tempMovie;
     const movies = `${movieArray.map(movie =>
-        `<div class="movie-container" onclick="navigateToMovieDetails('${movie.id}')">
+        `<div class="movie-container">
                 <img
                     id="img-${movie.id}"
                     ${lazyLoad ? `data-src=https://image.tmdb.org/t/p/w300${movie.poster_path}` : `src=https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                     class="movie-img"
                     alt="${movie.title}"
+                    onclick="navigateToMovieDetails('${movie.id}')"
                 />
-                <div class="movie-container-background">
-                <span class="movieDetail-score">${parseFloat(movie.vote_average).toFixed(1)}</span>
-                </div>
+                <button class="liked-btn generic-btn button-absolute-top-right ${isLikedMovie(movie.id) ? 'liked-btn--active' : ''}" data-movie-id="${movie.id}"></button>
             </div>`
     ).join("")}`
+
 
     infiniteScrolling ? domElementContainer.innerHTML = domElementContainer.innerHTML + movies : domElementContainer.innerHTML = movies
 
     // Agregando evento onError a los elementos img de los movie-containers
     domElementContainer.childNodes.forEach(movieContainer => {
         const img = movieContainer.children[0]
+        const likeBtn = movieContainer.children[1]
+
         if (!img.hasAttribute('has-onerror-event')) {
             img.addEventListener('error', (e) => setDefaultImage(e))
             img.setAttribute('has-onerror-event', true)
+        }
+
+        if (!likeBtn.hasAttribute('has-onclick-event')) {
+            likeBtn.setAttribute('has-onclick-event', true)
+            likeBtn.addEventListener('click', (e) => handleAddToFavorite(e))
         }
     })
     // Observando todos los .movie-container si lazyLoad es true
