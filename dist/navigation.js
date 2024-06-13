@@ -53,6 +53,7 @@ function homePage() {
     searchFormElement.classList.remove('inactive')
     trendingPreviewSectionElement.classList.remove('inactive')
     categoriesPreviewSection.classList.remove('inactive')
+    likedMovieSectionElement.classList.remove('inactive')
     genericListElement.classList.add('inactive')
     movieDetailSection.classList.add('inactive')
     footerElement.classList.remove('footer--movie-details')
@@ -60,6 +61,8 @@ function homePage() {
 
     getTrendingMoviesPreview()
     getCategoriesPreview()
+    const likedMoviesList = Object.values(getlikedMoviesList())
+    renderMovies(likedMoviesList.reverse(), likedMovieListElement, {lazyLoad: true, infiniteScroll: false})
 }
 
 function categoriesPage() {
@@ -74,6 +77,7 @@ function categoriesPage() {
     searchFormElement.classList.add('inactive')
     trendingPreviewSectionElement.classList.add('inactive')
     categoriesPreviewSection.classList.add('inactive')
+    likedMovieSectionElement.classList.add('inactive')
     genericListElement.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
     footerElement.classList.remove('footer--movie-details')
@@ -102,6 +106,7 @@ async function movieDetailsPage() {
 
     trendingPreviewSectionElement.classList.add('inactive')
     categoriesPreviewSection.classList.add('inactive')
+    likedMovieSectionElement.classList.add('inactive')
     genericListElement.classList.add('inactive')
     movieDetailSection.classList.remove('inactive')
 
@@ -142,6 +147,7 @@ function searchPage() {
     headerCategoryTitleElement.innerText = newTitleWordsArray.length === 1 && newTitleWordsArray[0] === '' ? "Search" : capitalize(newTitleWordsArray)
     trendingPreviewSectionElement.classList.add('inactive')
     categoriesPreviewSection.classList.add('inactive')
+    likedMovieSectionElement.classList.add('inactive')
     genericListElement.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
     searchFormElement.classList.remove('inactive')
@@ -167,6 +173,7 @@ function trendsPage() {
     searchFormElement.classList.add('inactive')
     trendingPreviewSectionElement.classList.add('inactive')
     categoriesPreviewSection.classList.add('inactive')
+    likedMovieSectionElement.classList.add('inactive')
     genericListElement.classList.remove('inactive')
     movieDetailSection.classList.add('inactive')
     footerElement.classList.remove('footer--movie-details')

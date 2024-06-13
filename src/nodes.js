@@ -26,3 +26,5 @@ const footerElement = document.querySelector('#footer')
 const resetScrollButton = document.createElement('button')
 resetScrollButton.innerText = 'Scroll Down'
 resetScrollButton.classList.add('button-fixed-bottom-right')
+const likedMovieSectionElement = document.querySelector('#liked')
+const likedMovieListElement = document.querySelector('#liked .liked-movieList')
