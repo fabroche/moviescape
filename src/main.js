@@ -34,6 +34,7 @@ function likeMovie(movie) {
 function isLikedMovie(movieId) {
     return Boolean(getlikedMoviesList()[movieId])
 }
+
 // Utils
 
 function handleInfiniteScroll() {
@@ -224,8 +225,16 @@ function getClosestWidth(screenWidth) {
 function handleScrollResetBtnState() {
     const {scrollTop, scrollHeight, clientHeight} = document.documentElement
     resetScrollButton.innerText === 'Scroll Up'
-        ? window.scrollTo(0, 0)
-        : window.scrollTo(0, scrollHeight)
+        ? window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        })
+        : window.scrollTo({
+            top: scrollHeight,
+            left: 0,
+            behavior: "smooth"
+        })
 }
 
 // API Call Functions
