@@ -5,6 +5,16 @@ const API = axios.create({
     }
 })
 
+// global values
+const useState = (defaultValue) => {
+    let value = defaultValue;
+
+    const getValue = () => value;
+    const setValue = (newValue) => value = newValue;
+
+    return [getValue, setValue];
+};
+
 // LocalStorage
 function getlikedMoviesList() {
     const likedMovies = JSON.parse(localStorage.getItem('liked_movies'))
@@ -75,12 +85,22 @@ const lazyLoadMovieContainerImg = (entries, observer) => {
             // Carga las imágenes de los próximos elementos
             const nextElements = getNextElements(entry.target, 6);
 
+
             // Carga los próximos n elementos
             nextElements.forEach((nextElement) => {
-                nextElement.classList.remove('movie-container--loading');
-                nextElement.children[0].setAttribute('src', nextElement.children[0].getAttribute('data-src'));
-                observer.unobserve(nextElement);
+                try {
+                    if (!nextElement.hasAttribute('not-observe')) {
+                        nextElement.classList.remove('movie-container--loading');
+                        nextElement.children[0].setAttribute('src', nextElement.children[0].getAttribute('data-src'));
+                        observer.unobserve(nextElement);
+                    }
+                } catch (e) {
+                    console.error("Error ocacionado en el elemento =", nextElement)
+                    console.error(e)
+                }
             });
+
+
         }
     });
 };
@@ -224,17 +244,20 @@ function getClosestWidth(screenWidth) {
 
 function handleScrollResetBtnState() {
     const {scrollTop, scrollHeight, clientHeight} = document.documentElement
-    resetScrollButton.innerText === 'Scroll Up'
-        ? window.scrollTo({
+    if (resetScrollButton.innerText === 'Scroll Up') {
+        setScrollState({x: 0, y: scrollTop})
+        window.scrollTo({
             top: 0,
             left: 0,
             behavior: "smooth"
         })
-        : window.scrollTo({
-            top: scrollHeight,
+    } else {
+        window.scrollTo({
+            top: scrollState().y === 0 ? scrollHeight : scrollState().y,
             left: 0,
             behavior: "smooth"
         })
+    }
 }
 
 // API Call Functions
