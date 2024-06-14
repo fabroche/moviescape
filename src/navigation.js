@@ -58,7 +58,6 @@ function homePage() {
     movieDetailSection.classList.add('inactive')
     footerElement.classList.remove('footer--movie-details')
 
-
     getTrendingMoviesPreview()
     getCategoriesPreview()
     const likedMoviesList = Object.values(getlikedMoviesList())
@@ -116,6 +115,9 @@ async function movieDetailsPage() {
     movieDetailScoreElement.innerText = ""
     movieDetailScoreElement.classList.add('movieDetail-score--loading')
     movieDetailDescriptionElement.innerText = ""
+    const likeBtn = movieDetailHeaderInfo.children[0]
+    likeBtn.classList.remove('liked-btn')
+    likeBtn.classList.add('liked-btn--loading')
     movieDetailDescriptionElement.classList.remove('movieDetail-description--loading')
     categoriesListElement.innerHTML = `
         <div class="category-container category-container--loading"></div>
