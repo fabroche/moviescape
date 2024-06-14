@@ -15,6 +15,7 @@ const categoriesPreviewTitleElement = document.querySelector('#categoriesPreview
 const categoriesPreviewListElement = document.querySelector('#categoriesPreview .categoriesPreview-list');
 const genericListElement = document.querySelector('#genericList');
 const movieDetailSection = document.querySelector('#movieDetail');
+const movieDetailHeaderInfo = document.querySelector('#movieDetails-header-info');
 const movieDetailTitleElement = document.querySelector('#movieDetail .movieDetail-title');
 const movieDetailScoreElement = document.querySelector('#movieDetail .movieDetail-score');
 const movieDetailDescriptionElement = document.querySelector('#movieDetail .movieDetail-description');

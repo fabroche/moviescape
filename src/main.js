@@ -160,10 +160,20 @@ function renderMovieDetailsSection(movie) {
     background-image: url(https://image.tmdb.org/t/p/w${getClosestWidth(window.innerWidth)}${movie.poster_path});
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 19.27%, rgba(0, 0, 0, 0) 29.17%), url(https://image.tmdb.org/t/p/w${getClosestWidth(window.innerWidth)}${movie.poster_path});
     `
+
     movieDetailTitleElement.innerText = movie.title
     movieDetailTitleElement.classList.remove('movieDetail-title--loading')
-    movieDetailScoreElement.innerText = parseFloat(movie.vote_average).toFixed(1)
+    movieDetailScoreElement.innerHTML = `<span class="movieDetail-score movieDetail-score-icon"></span>${parseFloat(movie.vote_average).toFixed(1)}`
     movieDetailScoreElement.classList.remove('movieDetail-score--loading')
+    const likeBtn = movieDetailHeaderInfo.children[0]
+    likeBtn.classList.remove('liked-btn--loading')
+    likeBtn.classList.add('liked-btn')
+    isLikedMovie(movie.id)
+        ? likeBtn.classList.add('liked-btn--active')
+        : likeBtn.classList.remove('liked-btn--active')
+
+    likeBtn.setAttribute('data-movie-id', movie.id)
+    likeBtn.addEventListener('click', (e) => handleAddToFavorite(e))
     movieDetailDescriptionElement.innerText = movie.overview
     movieDetailDescriptionElement.classList.remove('movieDetail-description--loading')
 

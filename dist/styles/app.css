@@ -497,13 +497,15 @@ button {
 }
 
 .movieDetail-score {
-    display: inline-block;
-    width: 18%;
+    width: 100%;
     font-weight: var(--font-weight-title2);
-    text-align: end;
+    text-align: center;
+}
+.movieDetail-score-icon {
+
 }
 
-.movieDetail-score::before {
+.movieDetail-score-icon::before {
     content: '★';
     color: var(--yellow);
     padding-right: 4px
@@ -515,9 +517,9 @@ button {
     height: 25px;
     min-height: 25px;
     max-height: 25px;
-    width: 18%;
-    min-width: 10%;
-    max-width: 18%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
     margin-bottom: 15px;
     animation: loading-skeleton infinite 1.5s;
 }
@@ -649,6 +651,26 @@ footer {
 
 .liked-btn--active::before {
     content: '💜';
+}
+
+.liked-btn--loading {
+    background: var(--purple-light-3);
+    border-radius: 50%;
+    height: 48px;
+    min-height: 48px;
+    max-height: 48px;
+    width: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    animation: loading-skeleton infinite 1.5s;
+}
+
+.container-flex-column-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
 }
 
 /*Animations*/
