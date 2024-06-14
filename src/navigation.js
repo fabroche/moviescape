@@ -1,6 +1,7 @@
 let maxPage;
 let page = 1
 let infiniteScroll;
+const [scrollState, setScrollState] = useState({x: 0, y: 0})
 
 function navigator() {
 
@@ -65,6 +66,7 @@ function homePage() {
 }
 
 function categoriesPage() {
+    setScrollState({x: 0, y: 0});
     window.scrollTo(0, 0)
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
@@ -138,6 +140,7 @@ async function movieDetailsPage() {
 }
 
 function searchPage() {
+    setScrollState({x: 0, y: 0});
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
@@ -164,6 +167,7 @@ function searchPage() {
 }
 
 function trendsPage() {
+    setScrollState({x: 0, y: 0});
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')

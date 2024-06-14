@@ -15,8 +15,6 @@ const useState = (defaultValue) => {
     return [getValue, setValue];
 };
 
-const [scrollState, setScrollState] = useState({x: 0, y: 0})
-
 // LocalStorage
 function getlikedMoviesList() {
     const likedMovies = JSON.parse(localStorage.getItem('liked_movies'))
@@ -255,7 +253,7 @@ function handleScrollResetBtnState() {
         })
     } else {
         window.scrollTo({
-            top: scrollState().y,
+            top: scrollState().y === 0 ? scrollHeight : scrollState().y,
             left: 0,
             behavior: "smooth"
         })
