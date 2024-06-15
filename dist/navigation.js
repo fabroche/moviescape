@@ -120,7 +120,7 @@ async function movieDetailsPage() {
     const likeBtn = movieDetailHeaderInfo.children[0]
     likeBtn.classList.remove('liked-btn')
     likeBtn.classList.add('liked-btn--loading')
-    movieDetailDescriptionElement.classList.remove('movieDetail-description--loading')
+    movieDetailDescriptionElement.classList.add('movieDetail-description--loading')
     categoriesListElement.innerHTML = `
         <div class="category-container category-container--loading"></div>
         <div class="category-container category-container--loading"></div>
