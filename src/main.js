@@ -242,8 +242,9 @@ function getClosestWidth(screenWidth) {
     return availableWidths[2]
 }
 
-function handleScrollResetBtnState() {
+function handleOnClickScrollResetBtn() {
     const {scrollTop, scrollHeight, clientHeight} = document.documentElement
+
     if (resetScrollButton.innerText === 'Scroll Up') {
         setScrollState({x: 0, y: scrollTop})
         window.scrollTo({
@@ -257,6 +258,15 @@ function handleScrollResetBtnState() {
             left: 0,
             behavior: "smooth"
         })
+    }
+}
+
+function handleScrollResetBtnState(scrollTop) {
+    console.log('me llamaron')
+    if (scrollTop === 0) {
+        resetScrollButton.innerText = 'Scroll Down'
+    }  else {
+        resetScrollButton.innerText = 'Scroll Up'
     }
 }
 
@@ -280,11 +290,8 @@ async function getTrendingMovies() {
 async function getPaginatedTrendingMovies() {
     const {scrollTop, scrollHeight, clientHeight} = document.documentElement
 
-    if (scrollTop === 0) {
-        resetScrollButton.innerText = 'Scroll Down'
-    } else {
-        resetScrollButton.innerText = 'Scroll Up'
-    }
+    handleScrollResetBtnState(scrollTop)
+
     const pageIsNotMaxPage = page < maxPage
     const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
 
@@ -323,11 +330,7 @@ function getPaginatedMoviesByCategory(categoryId) {
     return async function () {
         const {scrollTop, scrollHeight, clientHeight} = document.documentElement
 
-        if (scrollTop === 0) {
-            resetScrollButton.innerText = 'Scroll Down'
-        } else {
-            resetScrollButton.innerText = 'Scroll Up'
-        }
+        handleScrollResetBtnState(scrollTop)
 
         const pageIsNotMaxPage = page < maxPage
         const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
@@ -383,11 +386,7 @@ function getPaginatedMoviesBySearch(searchValue) {
     return async function () {
         const {scrollTop, scrollHeight, clientHeight} = document.documentElement
 
-        if (scrollTop === 0) {
-            resetScrollButton.innerText = 'Scroll Down'
-        } else {
-            resetScrollButton.innerText = 'Scroll Up'
-        }
+        handleScrollResetBtnState(scrollTop)
 
         const pageIsNotMaxPage = page < maxPage
         const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
