@@ -56,7 +56,6 @@ function handleInfiniteScroll() {
 }
 
 async function handleAddToFavorite(e) {
-
     e.target.classList.toggle('liked-btn--active')
 
     const movieId = e.target.getAttribute('data-movie-id')
@@ -194,7 +193,10 @@ function renderMovieDetailsSection(movie) {
         : likeBtn.classList.remove('liked-btn--active')
 
     likeBtn.setAttribute('data-movie-id', movie.id)
-    likeBtn.addEventListener('click', (e) => handleAddToFavorite(e))
+    if (!likeBtn.hasAttribute('has-like-event')) {
+        likeBtn.setAttribute('has-like-event', 'true')
+        likeBtn.addEventListener('click', (e) => handleAddToFavorite(e))
+    }
     movieDetailDescriptionElement.innerText = movie.overview
     movieDetailDescriptionElement.classList.remove('movieDetail-description--loading')
 
@@ -262,10 +264,9 @@ function handleOnClickScrollResetBtn() {
 }
 
 function handleScrollResetBtnState(scrollTop) {
-    console.log('me llamaron')
     if (scrollTop === 0) {
         resetScrollButton.innerText = 'Scroll Down'
-    }  else {
+    } else {
         resetScrollButton.innerText = 'Scroll Up'
     }
 }
