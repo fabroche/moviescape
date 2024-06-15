@@ -498,6 +498,7 @@ button {
     font-weight: var(--font-weight-title2);
     text-align: center;
 }
+
 .movieDetail-score-icon {
 
 }
@@ -600,7 +601,9 @@ footer {
     width: 54px;
     height: 54px;
     box-shadow: 0 0 10px 2px var(--purple-dark-1);
-    transition: all 500ms ease 0s;
+    opacity: 1;
+    animation: beat infinite 1.5s;
+    transition: all 300ms ease 0s;
 }
 
 .button-absolute-top-right {
@@ -613,10 +616,6 @@ footer {
     width: 36px;
     height: 36px;
     transition: all 300ms ease-in-out;
-}
-
-.inactive {
-    display: none !important;
 }
 
 .liked-container {
@@ -670,6 +669,18 @@ footer {
     gap: 6px;
 }
 
+
+.inactive {
+    display: none !important;
+}
+
+.hidden {
+    opacity: 0;
+}
+.beating {
+    animation: beat infinite 1.5s;
+}
+
 /*Animations*/
 
 @keyframes loading-skeleton {
@@ -678,5 +689,15 @@ footer {
     }
     50% {
         opacity: 0;
+    }
+}
+
+@keyframes beat {
+    0% , 100%{
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.05;
     }
 }
