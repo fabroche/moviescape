@@ -70,12 +70,15 @@ async function handleAddToFavorite(e) {
 }
 
 function onScrollHandleLanguageSelect() {
-    const {scrollTop} = document.documentElement
-    setScrollState({y: scrollTop})
-    if (scrollState().y >= 20) {
-        languageSelectElement.classList.add('hidden-top')
-    } else {
-        languageSelectElement.classList.remove('hidden-top')
+    if (location.hash.startsWith('#home')) {
+        const {scrollTop} = document.documentElement
+        setScrollState({y: scrollTop})
+        if (scrollState().y >= 20) {
+            languageSelectElement.classList.add('hidden-top')
+        } else {
+            languageSelectElement.classList.remove('hidden-top')
+            languageSelectElement.classList.remove('inactive')
+        }
     }
 }
 
