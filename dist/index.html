@@ -18,6 +18,12 @@
     <title>Moviescape</title>
 </head>
 <body>
+
+    <select id="idiomas" name="idiomas" class="idiomas">
+        <option value="en-US">ENG</option>
+        <option value="es-ES">ES</option>
+        <!-- Agrega más opciones de idioma aquí -->
+    </select>
 <header id="header" class="header-container">
     <div class="header-navigation-container">
         <span class="header-arrow inactive" id="header-arrow">&lt;</span>
@@ -36,8 +42,8 @@
 
 <section id="trendingPreview" class="trendingPreview-container">
     <div class="trendingPreview-header">
-        <h2 class="trendingPreview-title">Tendencias</h2>
-        <button class="trendingPreview-btn" id="trendingPreview-btn">Ver más</button>
+        <h2 class="trendingPreview-title">Trends</h2>
+        <button class="trendingPreview-btn" id="trendingPreview-btn">See more</button>
     </div>
 
     <article class="trendingPreview-movieList">
@@ -49,7 +55,7 @@
 </section>
 
 <section id="categoriesPreview" class="categoriesPreview-container">
-    <h2 class="categoriesPreview-title">Categorías</h2>
+    <h2 class="categoriesPreview-title">Categories</h2>
 
     <article class="categoriesPreview-list">
         <!--Categories List Content-->
@@ -64,7 +70,7 @@
 
 <section id="liked" class="liked-container">
     <div class="liked-header">
-        <h2 class="liked-title">Favoritos</h2>
+        <h2 class="liked-title">Favorites</h2>
     </div>
 
     <article class="liked-movieList">
@@ -104,7 +110,7 @@
     </article>
 
     <article class="relatedMovies-container">
-        <h2 class="relatedMovies-title">Películas similares</h2>
+        <h2 class="relatedMovies-title">Related Movies</h2>
 
         <div class="relatedMovies-scrollContainer">
             <!--movies content-->
@@ -115,9 +121,10 @@
     </article>
 </section>
 
-<footer id="footer">Hecho con amor en Cuba por @fabroche</footer>
+<footer id="footer">Maked with love from Cuba by @fabroche</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="src/internacionalization.js"></script>
 <script src="src/nodes.js"></script>
 <script src="src/secrets.js"></script>
 <script src="src/main.js"></script>

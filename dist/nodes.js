@@ -9,6 +9,7 @@ const searchFormButtonElement = document.getElementById('search-form-button');
 const trendingPreviewSectionElement = document.querySelector('#trendingPreview');
 const trendingPreviewBtnElement = document.querySelector('#trendingPreview-btn');
 const trendingPreviewHeaderElement = document.querySelector('#trendingPreview .trendingPreview-header');
+const trendingPreviewHeaderTitleElement = document.querySelector('#trendingPreview .trendingPreview-title');
 const trendingPreviewMovieListElement = document.querySelector('#trendingPreview .trendingPreview-movieList');
 const categoriesPreviewSection = document.querySelector('#categoriesPreview');
 const categoriesPreviewTitleElement = document.querySelector('#categoriesPreview .categoriesPreview-title');
@@ -29,4 +30,7 @@ resetScrollButton.innerText = 'Scroll Down'
 resetScrollButton.classList.add('button-fixed-bottom-right')
 resetScrollButton.setAttribute('not-observe', 'true')
 const likedMovieSectionElement = document.querySelector('#liked')
+const likedMoviePreviewTitleElement = document.querySelector('#liked .liked-title')
 const likedMovieListElement = document.querySelector('#liked .liked-movieList')
+const languageSelectElement = document.querySelector('#idiomas')
+languageSelectElement.addEventListener('change', (e) => onChangeHandleLanguageState(e))

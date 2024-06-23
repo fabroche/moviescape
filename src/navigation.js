@@ -2,6 +2,7 @@ let maxPage;
 let page = 1
 let infiniteScroll;
 const [scrollState, setScrollState] = useState({x: 0, y: 0})
+const [languageState, setLanguageState] = useState(localStorage.getItem('language') || "en-US")
 
 function navigator() {
 
@@ -44,6 +45,10 @@ headerArrowElement.addEventListener('click', () => history.back())
 headerHomeElement.addEventListener('click', () => location.hash = '#home')
 
 function homePage() {
+    onChangeHandleLanguageState()
+    languageSelectElement.value = languageState()
+    languageSelectElement.classList.remove('inactive')
+    languageSelectElement.classList.remove('hidden-top')
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.add('inactive')
@@ -61,13 +66,13 @@ function homePage() {
 
     getTrendingMoviesPreview()
     getCategoriesPreview()
-    const likedMoviesList = Object.values(getlikedMoviesList())
-    renderMovies(likedMoviesList.reverse(), likedMovieListElement, {lazyLoad: true, infiniteScroll: false})
+    getFavoriteMoviesPreview()
 }
 
 function categoriesPage() {
     setScrollState({x: 0, y: 0});
     window.scrollTo(0, 0)
+    languageSelectElement.classList.add('inactive')
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
@@ -95,6 +100,7 @@ async function movieDetailsPage() {
     window.scrollTo(0, window.innerHeight / 2)
     headerElement.classList.add('header-container--long')
     headerElement.classList.add('header-container--loading')
+    languageSelectElement.classList.add('inactive')
 
     // headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
@@ -141,6 +147,7 @@ async function movieDetailsPage() {
 
 function searchPage() {
     setScrollState({x: 0, y: 0});
+    languageSelectElement.classList.add('inactive')
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
@@ -168,6 +175,7 @@ function searchPage() {
 
 function trendsPage() {
     setScrollState({x: 0, y: 0});
+    languageSelectElement.classList.add('inactive')
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
     headerArrowElement.classList.remove('inactive')
