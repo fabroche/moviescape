@@ -38,7 +38,27 @@ body {
     font-weight: var(--font-weight-text1);
     font-size: 16px;
     margin: 4px 0 0;
-    padding: 0
+    padding: 0;
+}
+
+.idiomas {
+    width: 66px;
+    height: 32px;
+    position: fixed;
+    top: 36px;
+    right: 24px;
+    padding: 6px;
+    border-radius: 6px;
+    border: 3px solid var(--purple-dark-1);
+    background-color: var(--purple-dark-1);
+    color: var(--purple-light-1);
+    z-index: 3;
+    opacity: 1;
+    transition: all 200ms ease-in-out;
+}
+
+.idiomas option {
+    text-align: center;
 }
 
 h1, h2, h3 {
@@ -53,12 +73,6 @@ h1, h2 {
     font-weight: var(--font-weight-title1);
     margin: 0;
     padding: 0
-}
-
-h2 {
-    font-size: 18px;
-    color: var(--purple-dark-1);
-    font-weight: var(--font-weight-title2)
 }
 
 h3 {
@@ -187,7 +201,7 @@ button {
 }
 
 .header-container {
-    padding-top: 40px
+    padding-top: 40px;
 }
 
 .header-container--long {
@@ -276,6 +290,7 @@ button {
 }
 
 .trendingPreview-btn {
+    white-space: nowrap;
     border-radius: 8px;
     height: 32px;
     width: 72px
@@ -676,6 +691,10 @@ footer {
 
 .hidden {
     opacity: 0;
+}
+.hidden-top {
+    opacity: 0;
+    transform: translateY(-100%);
 }
 .beating {
     animation: beat infinite 1.5s;

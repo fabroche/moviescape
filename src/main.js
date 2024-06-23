@@ -45,10 +45,16 @@ function isLikedMovie(movieId) {
     return Boolean(getlikedMoviesList()[movieId])
 }
 
+function getFavoriteMoviesPreview() {
+    const likedMoviesList = Object.values(getlikedMoviesList())
+    renderMovies(likedMoviesList.reverse(), likedMovieListElement, {lazyLoad: true, infiniteScroll: false})
+}
+
 // Utils
 
 function handleInfiniteScroll() {
     try {
+        onScrollHandleLanguageSelect()
         infiniteScroll()
     } catch (error) {
 
@@ -61,6 +67,34 @@ async function handleAddToFavorite(e) {
     const movieId = e.target.getAttribute('data-movie-id')
     const movie = await getMovieById(movieId)
     likeMovie(movie);
+}
+
+function onScrollHandleLanguageSelect() {
+    const {scrollTop} = document.documentElement
+    setScrollState({y: scrollTop})
+    if (scrollState().y >= 20) {
+        languageSelectElement.classList.add('hidden-top')
+    } else {
+        languageSelectElement.classList.remove('hidden-top')
+    }
+}
+
+function onChangeHandleLanguageState(e = undefined) {
+    if (e) {
+        setLanguageState(e.target.value || languageState())
+        localStorage.setItem('language', languageState())
+    }
+    searchFormInputElement.placeholder = languageMaps[languageState()]['header-searchForm'].input.placeholder
+    trendingPreviewHeaderTitleElement.innerText = languageMaps[languageState()]['trendingPreview-header'].title
+    trendingPreviewBtnElement.innerText = languageMaps[languageState()]['trendingPreview-header'].button
+    categoriesPreviewTitleElement.innerText = languageMaps[languageState()]['categoriesPreview-title'].title
+    likedMoviePreviewTitleElement.innerText = languageMaps[languageState()]['liked-header'].title
+    relatedMoviesTitleElement.innerText = languageMaps[languageState()]['relatedMovies-title'].title
+    footerElement.innerText = languageMaps[languageState()]['footer'].text
+    getTrendingMoviesPreview()
+    getCategoriesPreview()
+    getFavoriteMoviesPreview()
+
 }
 
 // Función para obtener los próximos elementos
@@ -130,7 +164,7 @@ function setDefaultImage(e) {
 function renderMovies(movieArray, domElementContainer, {lazyLoad = false, infiniteScrolling = false} = {}) {
 
     if (movieArray.length === 0 && !infiniteScrolling) {
-        domElementContainer.innerHTML = `<h3>🙁Ups!, there is no coincidences.</h3>`
+        domElementContainer.innerHTML = `<h3>${languageMaps[languageState()]['renderMovies'].error}</h3>`
         return;
     }
     let tempMovie;
@@ -174,6 +208,7 @@ function renderMovies(movieArray, domElementContainer, {lazyLoad = false, infini
 }
 
 function renderMovieDetailsSection(movie) {
+    console.log(`${movie.title}`, movie)
     headerElement.classList.remove('header-container--loading')
 
     headerElement.style = `
@@ -274,14 +309,14 @@ function handleScrollResetBtnState(scrollTop) {
 // API Call Functions
 async function getTrendingMoviesPreview() {
 
-    const {data} = await API('/trending/movie/day')
+    const {data} = await API(`/trending/movie/day?language=${languageState()}`)
 
     renderMovies(data.results, trendingPreviewMovieListElement, {lazyLoad: true})
 }
 
 async function getTrendingMovies() {
 
-    const {data} = await API('/trending/movie/day')
+    const {data} = await API(`/trending/movie/day?language=${languageState()}`)
     maxPage = data.total_pages;
     renderMovies(data.results, genericListElement, {lazyLoad: true})
 
@@ -300,6 +335,7 @@ async function getPaginatedTrendingMovies() {
         page++;
         const {data} = await API('/trending/movie/day', {
             params: {
+                language: languageState(),
                 page: page
             },
         })
@@ -318,6 +354,7 @@ async function getMoviesByCategory(categoryId) {
 
     const {data} = await API('/discover/movie', {
         params: {
+            language: languageState(),
             with_genres: categoryId
         }
     })
@@ -340,6 +377,7 @@ function getPaginatedMoviesByCategory(categoryId) {
             page++;
             const {data} = await API('/discover/movie', {
                 params: {
+                    language: languageState(),
                     with_genres: categoryId,
                     page: page
                 },
@@ -358,14 +396,13 @@ function getPaginatedMoviesByCategory(categoryId) {
 
 async function getMovieById(movieId) {
 
-    const {data} = await API(`/movie/${movieId}`)
-
+    const {data} = await API(`/movie/${movieId}?language=${languageState()}`)
     return data;
 }
 
 async function getRelatedMovieById(movieId) {
 
-    const {data} = await API(`/movie/${movieId}/recommendations`)
+    const {data} = await API(`/movie/${movieId}/recommendations?language=${languageState()}`)
 
     renderMovies(data.results, relatedMoviesScrollContainerElement, {lazyLoad: true})
 }
@@ -374,6 +411,7 @@ async function getMoviesBySearch(searchValue) {
 
     const {data} = await API('/search/movie', {
         params: {
+            language: languageState(),
             query: searchValue
         }
     })
@@ -396,6 +434,7 @@ function getPaginatedMoviesBySearch(searchValue) {
             page++;
             const {data} = await API('/search/movie', {
                 params: {
+                    language: languageState(),
                     query: searchValue,
                     page: page
                 },
@@ -414,7 +453,7 @@ function getPaginatedMoviesBySearch(searchValue) {
 
 async function getCategoriesPreview() {
 
-    const {data} = await API('/genre/movie/list')
+    const {data} = await API(`/genre/movie/list?language=${languageState()}`)
     renderCategories(data.genres, categoriesPreviewListElement)
 }
 
