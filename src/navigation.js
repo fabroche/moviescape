@@ -47,7 +47,9 @@ headerHomeElement.addEventListener('click', () => location.hash = '#home')
 function homePage() {
     onChangeHandleLanguageState()
     languageSelectElement.value = languageState()
-    languageSelectElement.classList.remove('inactive')
+    if (document.documentElement.scrollTop === 0) {
+        languageSelectElement.classList.remove('inactive')
+    }
     languageSelectElement.classList.remove('hidden-top')
     headerElement.classList.remove('header-container--long')
     headerElement.style.background = ''
