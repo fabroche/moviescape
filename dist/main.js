@@ -332,7 +332,7 @@ async function getPaginatedTrendingMovies() {
     handleScrollResetBtnState(scrollTop)
 
     const pageIsNotMaxPage = page < maxPage
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
+    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 50)
 
     if (scrollIsBottom && pageIsNotMaxPage) {
         page++;
@@ -374,7 +374,7 @@ function getPaginatedMoviesByCategory(categoryId) {
         handleScrollResetBtnState(scrollTop)
 
         const pageIsNotMaxPage = page < maxPage
-        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
+        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 50)
 
         if (scrollIsBottom && pageIsNotMaxPage) {
             page++;
@@ -431,7 +431,7 @@ function getPaginatedMoviesBySearch(searchValue) {
         handleScrollResetBtnState(scrollTop)
 
         const pageIsNotMaxPage = page < maxPage
-        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15)
+        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 50)
 
         if (scrollIsBottom && pageIsNotMaxPage) {
             page++;
